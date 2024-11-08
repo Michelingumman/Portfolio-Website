@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adam's Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.scss">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+<body>
+    
+    
+    <!-- <span>
+ WELCOME!!
+ Looking around i see, 
+ here a coffe while you snook
+ enjoy :)
+
+     (  )   (   )  )
+     ) (   )  (  (
+     ( )  (    ) )
+     _____________
+    <_____________> ___
+    |             |/ _ \
+    |               | | |
+    |               |_| |
+ ___|             |\___/
+/    \___________/    \
+\_____________________/
+
+    </span> -->
+
+
+
+<div id="me-container" draggable="false">
+    <h3>Hi, im <strong>Adam Michelin</strong>
+        <br>
+        a Last year 
+        Electrical Engineer 
+        Student
+    </h3>
+    <!-- <img src="img/me/portrait.png" alt="A picture of me" id="profile-image" /> -->
+    <div id="logo-container" draggable="false">
+        
+        <a href="https://linkedin.com/in/adam-michelin" draggable="false" target="_blank"><i class="bi bi-linkedin"></i></a>
+        <a href="https://instagram.com/adamichelin" draggable="false" target="_blank"><i class="bi bi-instagram"></i></a>
+        <a href="https://gitlab.com/Michelingumman" draggable="false" target="_blank"><i class="bi bi-gitlab"></i></a>
+        <a href="https://github.com/Michelingumman" draggable="false" target="_blank"><i class="bi bi-github"></i></a> 
+        
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+
+    
+    <div class="text-container" draggable="false">
+        <div class="text-item" draggable="false">
+            <i class="bi bi-code-slash" style="font-size: 1.6rem;" draggable="false"></i>
+            <p>
+                C <br> 
+                C++ <br> 
+                Python <br> 
+                Matlab<br> 
+                Simulink<br> 
+                NodeRed<br> 
+            </p>
+        </div>
+        <div class="text-item" draggable="false">
+            <i class="bi bi-motherboard" style="font-size: 1.5rem;" draggable="false"></i>
+            <p>
+                MCU<br> 
+                KiCad <br> 
+                LTspice<br> 
+                PlatformIO <br> 
+                Embedded <br> 
+            </p>
+        </div>
+        <div class="text-item" draggable="false">
+            <i class="bi bi-paint-bucket" style="font-size: 1.5rem;" draggable="false"></i>
+            <p>
+                CAD <br> 
+                UI, UX <br> 
+                3D-Printing<br> 
+                Fushion360 <br> 
+                Ultimaker-Cura <br> 
+                Laser-Engraving <br> 
+            </p>
+        </div>
+    </div>
+    
+    
+
+
+
+</div>
+
+
+<div id="arrow" draggable="false">
+    <span draggable="false">Scroll / Drag</span>
+    <a draggable="false"><i class="bi bi-arrow-left"></i></a>
+</div>
+
+<div id="arrow-mobile">
+    <a draggable="false"><i class="bi bi-arrow-up"></i></a>
+</div>
+
+
+<div id="project-track" data-mouse-down-at="0" data-prev-percentage="0" draggable="false">
+    
+    <a href="projects/Capacitance-Based Fluid Flow Measurement.pdf" draggable="false" target="_blank" class="proj" style="background-image: url('img/fluiddd.jpg');" alt="Capacitance-Based fluid flow"></a>
+    
+    <a href="projects/3 Phase Power Meter.pdf" draggable="false" target="_blank" class="proj" style="background-image: url('img/mains.jpg');" alt="3 Phase Power Meter"></a>
+    
+    <a href="projects/Energy Efficiency Controll & Optimization System.pdf" draggable="false" target="_blank" class="proj" style="background-image: url('img/vent.jpg');" alt="Advanced Ventilation System"></a>
+        
+    <a href="projects/Battery Monitoring System for Vehicle Leakage Current.pdf" draggable="false" target="_blank" class="proj" style="background-image: url('img/bms.jpg');" alt="BMS for Leakage Current"></a>
+    
+    <a href="projects/Advanced Sauna Control & UI.pdf" draggable="false" target="_blank" class="proj" style="background-image: url('img/sauna.jpg');" alt="Advanced Sauna Control & UI"></a>
+    
+    <a href="projects/water.html" draggable="false" target="_blank" class="proj" style="background-image: url('img/water.jpg');" alt="Rainwater Collection System"></a>
+    
+</div>
+
+
+
+
+
+
+<script src="js.js"></script>
+
+
+
+<!-- adding firebase analytics -->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyA6dae4fNi1uuzCF3BskXlK8xZRG5g3hOE",
+        authDomain: "website-adammichelin.firebaseapp.com",
+        projectId: "website-adammichelin",
+        storageBucket: "website-adammichelin.appspot.com",
+        messagingSenderId: "880226019949",
+        appId: "1:880226019949:web:b32aaaf3da4bd5f715ed64",
+        measurementId: "G-1FNR7DWZBL"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+</script>
+
+
+</body>
+</html>
