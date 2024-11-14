@@ -213,7 +213,8 @@ else { // For Mobile screens
                 }, 2000); // Adjust duration as needed
             } else {
                 // If already hovered, redirect to href
-                window.location.href = this.href;
+                window.open(this.href, '_blank');
+
             }
         });
     });

@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "website-adammichelin"
-  }
+  },
+  "targets": {
+    "website-adammichelin": {
+      "hosting": {
+        "main-site": [
+          "website-adammichelin"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

@@ -1,10 +1,17 @@
 {
   "hosting": {
+    "site": "website-adammichelin",
     "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/glass-marker/**",
+        "destination": "/glass-marker/index.html"
+      }
     ]
   }
 }
