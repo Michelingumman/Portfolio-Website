@@ -230,10 +230,10 @@ strong{
     content: attr(alt); /* Use the alt text as the hover text */
     position: absolute;
     top: 96%;
-    left: 35%;
+    left: 50%;
     transform: translate(-50%, -50%);
     color: var(--light); /* Text color */
-    font-size: 0.7rem; /* Adjust as necessary */
+    font-size: 0.6rem; /* Adjust as necessary */
     font-weight: 200;
     font-family: 'Poppins', sans-serif;
     
@@ -348,8 +348,8 @@ strong{
 
     #project-track > .proj::after {
         top: 96%;
-        left: 40%;
-        font-size: 0.7rem; /* Adjust as necessary */
+        left: 50%;
+        font-size: 0.6rem; /* Adjust as necessary */
         font-weight: 200;
         font-family: 'Poppins', sans-serif;
 
@@ -424,7 +424,7 @@ strong{
         font-weight: 300; /* Font weight */
     }
 
-    #fortydligande{
+    .fortydligande{
         opacity: 0;
         filter: opacity(0);
         pointer-events: none; /* Disables any interactions */
@@ -503,11 +503,11 @@ strong{
     #project-track > .proj::after {
         content: attr(alt); /* Use the alt text as the hover text */
         position: absolute;
-        top: 87%;
+        top: 92%;
         left: 50%;
         transform: translate(-50%, -50%);
         color: var(--light); /* Text color */
-        font-size: 1.1rem; /* Adjust as necessary */
+        font-size: 0.9rem; /* Adjust as necessary */
         font-weight: 300;
         font-family: 'Poppins', sans-serif;
         
