@@ -67,8 +67,7 @@ node_modules/
 # dotenv environment variables file
 .env
 
-images
+/public/images/
+/public/img/
+/public/glass-marker/
 
-img
-
-glass-marker
