@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
 
@@ -157,7 +156,7 @@ strong{
 
 }
 #arrow {
-    transition: opacity 1s ease, transform 0.5s ease;
+    transition: opacity 0.5s ease, transform 0.3s ease;
     z-index: 0;
     opacity: 0.5;
     display: flex;
@@ -166,7 +165,7 @@ strong{
 
 #arrow > a {
     transform: translate(-350%, 0%);
-    transition: transform 0.5s ease; /* Smooth transition for the arrow */
+    transition: transform 0.3s ease; /* Smooth transition for the arrow */
 }
 #arrow > a:hover {
     transform: translate(-380%, 0%); /* Adjusted hover effect */
@@ -529,6 +528,206 @@ strong{
         white-space: nowrap; /* Allow text to wrap */
         text-align: center; /* Center the text */
         max-width: 80%; /* Limit width to prevent overflow */
+    }
+}
+
+/* ================================================
+   TIMELINE STYLES - MANUAL ADJUSTMENT SECTION
+   ================================================ */
+
+/* Main timeline container positioning - ADJUST THESE VALUES to change overall timeline position */
+#timeline-container {
+    position: absolute;
+    left: 110%;         /* Centers the timeline horizontally */
+    top: 20%;          /* ADJUST: Controls vertical position from top of screen */
+    width: 80vw;       /* Width will be dynamically set by JS */
+    height: 1px;       /* ADJUST: Thickness of the timeline */
+    z-index: 3;        /* Layer positioning - higher numbers appear on top */
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.7s ease, top 0.3s ease, width 0.3s ease;
+    transform: translateX(-50%);
+}
+
+/* The horizontal line - ADJUST to change the line's appearance */
+.timeline-line {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    width: 100%; 
+    height: 2px;           /* ADJUST: Thickness of the timeline line */
+    background: rgba(170, 170, 170, 0.164); /* ADJUST: Color and opacity of line */
+    transform: translateY(-50%);
+}
+
+/* Controls the positioning of markers along the line */
+.timeline-markers {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* ADJUST: Controls spacing between markers */
+    align-items: center;
+}
+
+/* Individual marker styling - ADJUST to change each marker's size and appearance */
+.timeline-marker {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40vmin;      /* Width will be dynamically set by JS */
+    opacity: 0.7;       /* ADJUST: Default opacity of inactive markers */
+    transition: opacity 0.3s ease, transform 0.3s ease, width 0.3s ease;
+}
+
+/* Active marker styling */
+.timeline-marker.active {
+    opacity: 1;        /* ADJUST: Opacity of active marker */
+}
+
+/* The dot on the timeline - ADJUST to change the dot appearance */
+.marker-dot {
+    width: 15px;        /* ADJUST: Size of timeline dots */
+    height: 15px;       /* ADJUST: Size of timeline dots */
+    border-radius: 50%;
+    background-color: var(--light);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2); /* ADJUST: Glow effect around dots */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+    transform: translateY(-50%);
+}
+
+/* Colors for each marker dot - ADJUST to change the color pattern */
+.timeline-marker:nth-child(1) .marker-dot {
+    background: var(--gradient-lilac); /* ADJUST: Color of first marker */
+}
+
+.timeline-marker:nth-child(2) .marker-dot {
+    background: var(--gradient-green); /* ADJUST: Color of second marker */
+}
+
+.timeline-marker:nth-child(3) .marker-dot {
+    background: var(--gradient-orange); /* ADJUST: Color of third marker */
+}
+
+.timeline-marker:nth-child(4) .marker-dot {
+    background: var(--gradient-lilac); /* ADJUST: Color pattern repeats */
+}
+
+.timeline-marker:nth-child(5) .marker-dot {
+    background: var(--gradient-green);
+}
+
+.timeline-marker:nth-child(6) .marker-dot {
+    background: var(--gradient-orange);
+}
+
+.timeline-marker:nth-child(7) .marker-dot {
+    background: var(--gradient-lilac);
+}
+
+.timeline-marker:nth-child(8) .marker-dot {
+    background: var(--gradient-green);
+}
+
+/* Active dot appearance - ADJUST to change how the active dot looks */
+.timeline-marker.active .marker-dot {
+    transform: translateY(-50%) scale(1.5); /* ADJUST: How much larger the active dot becomes */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6); /* ADJUST: Glow effect on active dot */
+}
+
+/* Info card styling - ADJUST to change the project info display */
+.marker-info {
+    background-color: rgba(20, 20, 20, 0.8); /* ADJUST: Background color and opacity */
+    backdrop-filter: blur(5px);              /* ADJUST: Blur effect behind info card */
+    padding: 6px 10px;                       /* ADJUST: Padding inside info card */
+    border-radius: 6px;                      /* ADJUST: Rounded corners of info card */
+    font-size: 0.65rem;                      /* ADJUST: Text size in info card */
+    width: auto;
+    text-align: center;
+    position: absolute;
+    top: -40px;                              /* ADJUST: Vertical position of info card */
+    opacity: 0.8;                            /* ADJUST: Info cards always visible */
+    transform: translateX(-50%);             /* Centers the card horizontally */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    min-width: 90px;                         /* ADJUST: Minimum width of info card */
+    left: 50%;
+    z-index: 2;                              /* Default z-index for all info cards */
+}
+
+/* Active info card appearance */
+.timeline-marker.active .marker-info {
+    opacity: 1;                              /* ADJUST: Opacity of active info card */
+    transform: translateX(-50%);
+    z-index: 4;                              /* Active info card appears on top */
+}
+
+/* Project name styling - ADJUST to change project name appearance */
+.project-name {
+    font-weight: 500;                        /* ADJUST: Bold-ness of project name */
+    color: var(--light);                     /* ADJUST: Color of project name */
+    margin-bottom: 2px;
+    white-space: nowrap;
+}
+
+/* Project date styling - ADJUST to change date appearance */
+.project-date {
+    font-size: 0.55rem;                      /* ADJUST: Size of date text */
+    color: #888;                             /* ADJUST: Color of date text */
+    margin-bottom: 3px;
+}
+
+/* Progress bar container - ADJUST to change progress bar appearance */
+.project-progress {
+    margin-top: 5px;
+}
+
+.progress-bar {
+    height: 2px;                             /* ADJUST: Height of progress bar */
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1); /* ADJUST: Background color of progress bar */
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--light), #865cfb); /* ADJUST: Color of progress indicator */
+    border-radius: 3px;
+}
+
+/* ================================================
+   MOBILE ADJUSTMENTS - For screens under 500px width
+   ================================================ */
+@media screen and (max-width: 500px) {
+    #timeline-container {
+        top: 250%;                          /* ADJUST: Mobile vertical position */
+        width: 90%;
+        height: 2px;
+    }
+    
+    .marker-dot {
+        width: 6px;                         /* ADJUST: Mobile dot size */
+        height: 6px;
+    }
+    
+    .marker-info {
+        font-size: 0.55rem;                 /* ADJUST: Mobile info text size */
+        min-width: 80px;                    /* ADJUST: Mobile info card width */
+        padding: 4px 8px;
+        top: -35px;                         /* ADJUST: Mobile info card position */
+    }
+    
+    .project-date {
+        font-size: 0.5rem;                  /* ADJUST: Mobile date text size */
+    }
+    
+    .project-progress {
+        margin-top: 3px;
+    }
+    
+    .progress-bar {
+        height: 1px;                        /* ADJUST: Mobile progress bar height */
     }
 }
 
