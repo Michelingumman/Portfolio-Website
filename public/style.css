@@ -44,6 +44,23 @@ strong{
     font-weight: 600;
 }
 
+h1 {
+    font-weight: 250;
+    letter-spacing: 0.03em;
+    font-size: 1.5em;
+}
+
+h1 .name-link {
+    font-weight: 250;
+    letter-spacing: 0.03em;
+}
+
+h1 .subtitle {
+    font-weight: 200;
+    font-size: 0.85em;
+    letter-spacing: 0.04em;
+}
+
 
 
 #me-container {
