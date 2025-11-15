@@ -9,21 +9,31 @@ const projectTrack = document.getElementById('project-track');
 const timelineContainer = document.getElementById('timeline-container');
 const timelineMarkers = document.querySelectorAll('.timeline-marker');
 
-// Global function to update opacity and arrow position based on percentage
-// ADJUST: Controls when intro section fades based on horizontal movement
-function updateMeContainerOpacity(nextPercentage) {
-    // ADJUST: This threshold controls when the intro section disappears
-    const scrollThreshold = window.innerWidth/400; 
-    if (nextPercentage <= -scrollThreshold) {
-        meContainer.style.opacity = '0'; // Fully disappear
-        arrow.style.opacity = '0';
+// Desktop intro fade + arrow behaviour (project track drag / scroll)
+// Uses the same simple linear fade as mobile for consistency
+function updateIntroSectionState(nextPercentage = 0) {
+    // Convert percentage to a positive value for fade calculation
+    const dragAmount = Math.abs(nextPercentage);
+    
+    // Simple linear fade like mobile: opacity = 1 - (dragAmount / fadeDistance)
+    // Fully faded after dragging ~20% of track width
+    const fadeDistance = 20;
+    const opacity = Math.max(0, 1 - (dragAmount / fadeDistance));
+
+    if (meContainer) {
+        meContainer.style.opacity = opacity.toString();
+        meContainer.style.pointerEvents = opacity <= 0 ? 'none' : 'auto';
+        meContainer.style.visibility = opacity <= 0 ? 'hidden' : 'visible';
     }
-    else {
-        meContainer.style.opacity = '1'; // Fully visible
-        arrow.style.opacity = '0.5'; // ADJUST: Arrow opacity
+
+    // Arrow fades and moves with intro
+    if (arrow) {
+        arrow.style.opacity = opacity.toString();
+        
+        // Arrow shoots left dramatically as you drag
+        const arrowShift = nextPercentage * 200; // Dramatic leftward movement
+        arrow.style.transform = `translate(${arrowShift}%, 0)`;
     }
-    // ADJUST: Arrow movement speed and direction
-    arrow.style.transform = `translate(${-0 + nextPercentage*200}%, 0)`; // ADJUST: Multiplier controls speed
 }
 
 /* ================================================
@@ -57,7 +67,9 @@ function positionTimelineMarkers() {
         const totalWidthPx = totalWidthVmin * vMinInPx;
         
         // Set the exact width to match the project track
-        timelineContainer.style.width = `${totalWidthVmin}vmin`;
+        if (timelineContainer) {
+            timelineContainer.style.width = `${totalWidthVmin}vmin`;
+        }
         
         // Position timeline marker exactly above each project card
         timelineMarkers.forEach((marker, index) => {
@@ -91,10 +103,12 @@ function ensureTimelineAlignment() {
     const currentPercentage = parseFloat(projectTrack.dataset.prevPercentage || 0);
     
     // Apply timeline transform directly
-    timelineContainer.style.transform = `translateX(calc(-50% + ${currentPercentage}%))`;
-    
-    // Update vertical position
-    updateTimelineVerticalPosition();
+    if (timelineContainer) {
+        timelineContainer.style.transform = `translateX(calc(-50% + ${currentPercentage}%))`;
+        
+        // Update vertical position
+        updateTimelineVerticalPosition();
+    }
     
     // Update active marker
     updateActiveMarker(currentPercentage);
@@ -143,7 +157,9 @@ function updateTimelineVerticalPosition() {
     const cardTop = projectTrackRect.top - 80; // ADJUST: 80px above cards - increase for more space
         
     // ADJUST: Minimum top position (prevents going off screen)
-    timelineContainer.style.top = `${Math.max(20, cardTop)}px`; // ADJUST: 20px minimum from top
+    if (timelineContainer) {
+        timelineContainer.style.top = `${Math.max(20, cardTop)}px`; // ADJUST: 20px minimum from top
+    }
 }
 
 // Add debouncing to avoid excessive recalculations during resize
@@ -169,6 +185,7 @@ function handleResize() {
 document.addEventListener('DOMContentLoaded', () => {
     positionTimelineMarkers();
     updateActiveMarker(0); // Activate first marker by default
+    updateIntroSectionState(0);
 });
 
 // Update timeline on window resize with improved handler
@@ -219,19 +236,21 @@ if (window.innerWidth > 450) { // For Desktop screens
 
         // CRITICAL: Apply timeline transform directly for immediate response
         // Account for current viewport size
-        const viewportWidth = window.innerWidth;
-        timelineContainer.style.transform = `translateX(calc(-50% + ${nextPercentage}%))`;
-        
-        // Then animate the timeline for smooth transition
-        timelineContainer.animate({
-            transform: `translateX(calc(-50% + ${nextPercentage}%))`
-        }, { duration: 1200, fill: "forwards" });
+        if (timelineContainer) {
+            const viewportWidth = window.innerWidth;
+            timelineContainer.style.transform = `translateX(calc(-50% + ${nextPercentage}%))`;
+            
+            // Then animate the timeline for smooth transition
+            timelineContainer.animate({
+                transform: `translateX(calc(-50% + ${nextPercentage}%))`
+            }, { duration: 1200, fill: "forwards" });
 
-        // Update timeline vertical position for precise alignment
-        updateTimelineVerticalPosition();
+            // Update timeline vertical position for precise alignment
+            updateTimelineVerticalPosition();
+        }
 
         // ADJUST: Controls when intro section fades based on horizontal movement
-        updateMeContainerOpacity(nextPercentage);
+        updateIntroSectionState(nextPercentage);
         
         // Update timeline active marker
         updateActiveMarker(nextPercentage);
@@ -274,32 +293,20 @@ if (window.innerWidth > 450) { // For Desktop screens
 
         // CRITICAL: Apply timeline transform directly for immediate response - compensate for viewport size
         // The transform calculation takes into account the current viewport size
-        const viewportWidth = window.innerWidth;
-        timelineContainer.style.transform = `translateX(calc(-50% + ${nextPercentage}%))`;
-        
-        // Then animate the timeline for smooth transition
-        timelineContainer.animate({
-            transform: `translateX(calc(-50% + ${nextPercentage}%))`
-        }, { duration: 1200, fill: "forwards" });
+        if (timelineContainer) {
+            const viewportWidth = window.innerWidth;
+            timelineContainer.style.transform = `translateX(calc(-50% + ${nextPercentage}%))`;
+            
+            // Then animate the timeline for smooth transition
+            timelineContainer.animate({
+                transform: `translateX(calc(-50% + ${nextPercentage}%))`
+            }, { duration: 1200, fill: "forwards" });
 
-        // Update timeline vertical position for accurate alignment
-        updateTimelineVerticalPosition();
-
-        // CRITICAL: Update arrow and opacity immediately for wheel events
-        // Apply opacity changes directly first for immediate feedback
-        if (nextPercentage <= -(window.innerWidth/400)) {
-            meContainer.style.opacity = '0';
-            arrow.style.opacity = '0';
-        } else {
-            meContainer.style.opacity = '1';
-            arrow.style.opacity = '0.5';
+            // Update timeline vertical position for accurate alignment
+            updateTimelineVerticalPosition();
         }
-        
-        // Move the arrow directly for immediate feedback
-        arrow.style.transform = `translate(${-0 + nextPercentage*200}%, 0)`;
-        
-        // Then call the function for consistency with other events
-        updateMeContainerOpacity(nextPercentage);
+
+        updateIntroSectionState(nextPercentage);
         
         // Update timeline markers
         updateActiveMarker(nextPercentage);
@@ -310,41 +317,18 @@ if (window.innerWidth > 450) { // For Desktop screens
 
     // DESKTOP: Handles vertical scrolling behavior 
     window.onscroll = () => {
-        let scrollY = window.scrollY;
+        const scrollY = window.scrollY;
+        const trackOffset = scrollY / 2; // ADJUST: Smaller divisor = faster movement
 
-        // ADJUST: Fade rate of intro section when scrolling
-        let opacityValue = Math.max(1 - scrollY / 200, 0); // ADJUST: Change 200 to adjust fade speed
-        meContainer.style.opacity = opacityValue.toString();
-
-        // ADJUST: Project track vertical movement with scroll
-        let trackOffset = scrollY / 2; // ADJUST: Smaller divisor = faster movement
-        
-        // Apply project track transform directly
         projectTrack.style.transform = `translate(-50%, ${trackOffset}px)`;
-        
-        // Calculate the horizontal percentage equivalent for the timeline
+
         const horizontalPercentage = -scrollY / 2;
         
-        // Apply timeline horizontal transform directly, accounting for viewport size
-        const viewportWidth = window.innerWidth;
-        timelineContainer.style.transform = `translateX(calc(-50% + ${horizontalPercentage}%))`;
-        
-        // Update timeline vertical position to stay above cards
-        updateTimelineVerticalPosition();
-
-        // CRITICAL: Direct arrow movement for vertical scrolling
-        // Move the arrow directly based on horizontal percentage
-        arrow.style.transform = `translate(${-0 + horizontalPercentage*200}%, 0)`;
-        
-        // Apply opacity threshold directly
-        if (horizontalPercentage <= -(window.innerWidth/400)) {
-            arrow.style.opacity = '0';
-        } else {
-            arrow.style.opacity = '0.5';
+        if (timelineContainer) {
+            timelineContainer.style.transform = `translateX(calc(-50% + ${horizontalPercentage}%))`;
+            updateTimelineVerticalPosition();
         }
-        
-        // Then call the update function for consistency
-        updateMeContainerOpacity(horizontalPercentage);
+        updateIntroSectionState(horizontalPercentage);
         updateActiveMarker(horizontalPercentage);
     };
 
@@ -388,7 +372,7 @@ else { // For Mobile screens
     // ADJUST: Mobile scrolling behavior for timeline
     window.onscroll = () => {
         let scrollY = window.scrollY;
-        updateMeContainerOpacity(scrollY);
+        updateMobileIntroOpacity(scrollY);
         
         // ADJUST: Mobile timeline positioning logic
         const projectTrackTop = projectTrack.getBoundingClientRect().top;
@@ -417,7 +401,7 @@ else { // For Mobile screens
     const scrollDistance = document.documentElement.scrollHeight - window.innerHeight;
 
     // ADJUST: Mobile opacity and arrow position based on scroll
-    function updateMeContainerOpacity(scrollY) {
+    function updateMobileIntroOpacity(scrollY) {
         // ADJUST: Fade speed for intro section on mobile
         const opacityValue = Math.max(1 - scrollY / 50, 0); // ADJUST: Change 50 to adjust fade speed
         meContainer.style.opacity = opacityValue.toString();
@@ -433,7 +417,7 @@ else { // For Mobile screens
     // Add event listener for scroll to update position and opacity
     window.addEventListener('scroll', () => {
         let scrollY = window.scrollY;
-        updateMeContainerOpacity(scrollY);
+        updateMobileIntroOpacity(scrollY);
     });
 
     // ADJUST: Project click functionality (mobile)

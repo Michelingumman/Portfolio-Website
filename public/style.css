@@ -34,7 +34,9 @@ body {
     justify-content: center; /* Center horizontally */
 }
 
-
+h1 {
+    font-weight: 200; /* Even thinner font weight for a cleaner look */
+}
 
 h3{
     font-weight: 200;
@@ -42,23 +44,6 @@ h3{
 
 strong{
     font-weight: 600;
-}
-
-h1 {
-    font-weight: 250;
-    letter-spacing: 0.03em;
-    font-size: 1.5em;
-}
-
-h1 .name-link {
-    font-weight: 250;
-    letter-spacing: 0.03em;
-}
-
-h1 .subtitle {
-    font-weight: 200;
-    font-size: 0.85em;
-    letter-spacing: 0.04em;
 }
 
 
@@ -72,7 +57,7 @@ h1 .subtitle {
     left: 5%;
     top: 50%;
     transform: translate(0, -50%);
-    transition: opacity 1s ease;
+    transition: opacity 0.3s ease-out; /* Very short transition for smooth frame-to-frame interpolation */
     padding: 20px;
     margin-left: 20px;
     z-index: 0;
@@ -173,7 +158,7 @@ h1 .subtitle {
 
 }
 #arrow {
-    transition: opacity 0.5s ease, transform 0.3s ease;
+    transition: opacity 0.95s ease-out, transform 0.95s ease-out; /* Very short transition for smooth interpolation */
     z-index: 0;
     opacity: 0.5;
     display: flex;
@@ -235,52 +220,42 @@ h1 .subtitle {
     filter: grayscale(100%) saturate(0%);
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: flex-end; /* Align title to the bottom */
+    justify-content: center; /* Center title horizontally */
+    text-decoration: none; /* Remove any link underline */
+}
+
+.project-title {
+    color: white;
+    font-size: 0.9rem; /* Smaller font size */
+    font-weight: 200; /* Even thinner font weight */
+    padding: 1.5rem 1rem; /* Adjusted padding */
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px); /* Start slightly lower */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Smoother transition */
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.7) 30%, transparent); /* Enhanced gradient */
+    width: 100%;
+    text-decoration: none; /* Remove underline */
+    user-select: none; /* Prevent text selection */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
 }
 
 #project-track:hover > .proj {
     filter: grayscale(100%) saturate(0%);
-    
 }
 
-#project-track > .proj::after {
-    content: attr(alt); /* Use the alt text as the hover text */
-    position: absolute;
-    top: 96%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--light); /* Text color */
-    font-size: 0.6rem; /* Adjust as necessary */
-    font-weight: 200;
-    font-family: 'Poppins', sans-serif;
-    
-    /* Gradient background for smooth fade */
-    background: linear-gradient(
-        to top, 
-        rgb(0, 0, 0) 15%, /* Opaque black at bottom */
-        rgba(0, 0, 0, 0) 100% /* Fully transparent at top */
-    );
-    
-    padding: 5rem 10rem;
-    border-radius: 5px;
-    opacity: 0; /* Initially hidden */
-    transition: opacity 1.2s ease-in-out; /* Smooth transition */
-    pointer-events: none; /* Prevent interaction with the text */
-    z-index: 1; /* Ensure it's above the image */
-    white-space: nowrap; /* Allow text to wrap */
-    /* text-align: center; */
-    max-width: 100%; /* Limit width to prevent overflow */
-}
-
-
-/* Show the text on hover */
-#project-track > .proj:hover::after {
-    opacity: 1; /* Show text on hover */
+#project-track > .proj:hover .project-title {
+    opacity: 1;
+    transform: translateY(0); /* Move to final position */
 }
 
 #project-track > .proj:hover {
     filter: grayscale(0%) saturate(175%);
     transform: scale(1.02);
-
 }
 
 
